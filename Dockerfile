@@ -15,7 +15,7 @@ ENV STATIC_PATH /app/static
 ENV STATIC_INDEX 0
 
 # Add demo app
-COPY ./webserver/* /app
+COPY ./webserver/* /app/
 WORKDIR /app
 RUN pip install -r requirements.txt
 
