@@ -1,0 +1,5 @@
+export aws_access_key="AKIASYWIPKSO4YEGCBFW"
+export aws_secret_key="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"
+export aws_account_id="190472737949"
+export aws_region="us-east-1"
+export aws_resource_prefix="benchsci"
