@@ -1,12 +1,36 @@
-version: 2.1
-orbs:
-  aws-ecr: circleci/aws-ecr@0.0.2
-  aws-ecs: circleci/aws-ecs@0.0.10
-workflows:
-  build-and-deploy:
-    jobs:
-      - aws-ecr/build_and_push_image:
-          account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-          repo: "${AWS_RESOURCE_NAME_PREFIX}"
-          region: ${AWS_DEFAULT_REGION}
-          tag: "${CIRCLE_SHA1}"
+FROM tiangolo/uwsgi-nginx:python3.7
+
+LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
+
+RUN pip install flask
+
+# URL under which static (not modified by Python) files will be requested
+# They will be served by Nginx directly, without being handled by uWSGI
+ENV STATIC_URL /static
+# Absolute path in where the static files wil be
+ENV STATIC_PATH /app/static
+
+# If STATIC_INDEX is 1, serve / with /static/index.html directly (or the static URL configured)
+# ENV STATIC_INDEX 1
+ENV STATIC_INDEX 0
+
+# Add demo app
+COPY ./webserver /app
+WORKDIR /app
+
+# Make /app/* available to be imported by Python globally to better support several use cases like Alembic migrations.
+ENV PYTHONPATH=/app
+
+# Move the base entrypoint to reuse it
+RUN mv /entrypoint.sh /uwsgi-nginx-entrypoint.sh
+# Copy the entrypoint that will generate Nginx additional configs
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+# Run the start script provided by the parent image tiangolo/uwsgi-nginx.
+# It will check for an /app/prestart.sh script (e.g. for migrations)
+# And then will start Supervisor, which in turn will start Nginx and uWSGI
+CMD ["/start.sh"]
+
