@@ -33,6 +33,10 @@ The following [environment variables](https://circleci.com/docs/2.0/env-vars/#se
 | `AWS_ACCOUNT_ID`               | AWS account id. This information is required for deployment.                                   |
 | `AWS_RESOURCE_NAME_PREFIX`     | Prefix that some of the required AWS resources are assumed to have in their names. The value should correspond to the `aws_resource_prefix` variable value in `terraform_setup/terraform.tfvars`.                             |
 
+## Add Additional Compute Resources
+To increase the robustness of this stack or limit Fargate costs, edit the default DesiredCount count value in modules/cloudformation-templates/public-service.yml.
+
+
 ## Useful Links & References
 - https://circleci.com/orbs/registry/orb/circleci/aws-ecr
 - https://circleci.com/orbs/registry/orb/circleci/aws-ecs
