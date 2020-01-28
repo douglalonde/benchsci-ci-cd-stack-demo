@@ -27,6 +27,7 @@ The ECS cluster is created using Terraform.
 4. Create the project on [CircleCI](https://circleci.com) (creating an account if necessary), and link it to this repository.
 5. FYI: Run `terraform destroy` to destroy most of the created AWS resources but in case of lingering undeleted resources, check the [AWS Management Console](https://console.aws.amazon.com/) to see if there are any remaining undeleted resources. In particular, please check the ECS, CloudFormation and VPC pages.
 
+![Simplified Architecture Diagram](https://raw.githubusercontent.com/douglalonde/benchsci-ci-cd-stack-demo/master/aws_ci_cd_pipeline_architecture.png)
 ### Configure environment variables on CircleCI
 The following [environment variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) must be set for the project on CircleCI via the project settings page, before the project can be built successfully.
 
@@ -64,3 +65,4 @@ https://github.com/awslabs/aws-centralized-logging
 - https://github.com/CircleCI-Public/aws-ecs-orb
 - https://github.com/awslabs/aws-cloudformation-templates
 - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_GetStarted.html
+- Secrets management: no immediate tie in found for Vault (keep looking). Secrets currently in .gitignore files)
