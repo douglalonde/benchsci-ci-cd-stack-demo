@@ -57,6 +57,7 @@ To increase the robustness of this stack or limit Fargate costs, edit the defaul
 https://github.com/awslabs/aws-centralized-logging
 https://github.com/awslabs/aws-centralized-logging
 - app.py logging to be redirected to STDOUT for instance level log access.
+- Implement infrastructure change set and release method.
 
 ## Useful Links & References
 - https://circleci.com/orbs/registry/orb/circleci/aws-ecr
