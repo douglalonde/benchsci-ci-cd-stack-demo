@@ -1,3 +1,5 @@
 # terraform
 **/.terraform/*
 **/env_vars.sh
+**/terraform.tfvars
+**/variables.tf
