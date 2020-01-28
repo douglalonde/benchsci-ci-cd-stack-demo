@@ -34,4 +34,8 @@ ENV PYTHONPATH=/app
 # It will check for an /app/prestart.sh script (e.g. for migrations)
 # And then will start Supervisor, which in turn will start Nginx and uWSGI
 #CMD ["/start.sh"]
-CMD ["python", "app.py"]
+
+EXPOSE 80
+
+RUN python app.py
+CMD ["/bin/sleep", "infinity"]

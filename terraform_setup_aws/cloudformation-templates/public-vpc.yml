@@ -129,7 +129,30 @@ Resources:
       GroupId: !Ref 'FargateContainerSecurityGroup'
       IpProtocol: -1
       SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
-
+  EcsSecurityGroupEgress:
+    Type: AWS::EC2::SecurityGroupEgress
+      SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 6880
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 6890
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: udp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: icmp
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: icmpv6
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+      
   # Load balancers for getting traffic to containers.
   # This sample template creates one load balancer:
   #
@@ -148,6 +171,30 @@ Resources:
           # Allow access to ALB from anywhere on the internet
           - CidrIp: 0.0.0.0/0
             IpProtocol: -1
+      SecurityGroupIngress:
+        SourceSecurityGroupId: Ref 'SecurityGroupIngress'
+          - IpProtocol: tcp
+            FromPort: 80
+            ToPort: 80
+            CidrIp: 0.0.0.0/0
+          - IpProtocol: tcp
+            FromPort: 443
+            ToPort: 443
+            CidrIp: 0.0.0.0/0
+          - IpProtocol: icmp
+            CidrIp: 0.0.0.0/0
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            CidrIp: 104.154.0.0/15
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            SourceSecurityGroupId: myVPC
+          - IpProtocol: udp
+            FromPort: 22
+            ToPort: 22
+            SourceSecurityGroupId: myVPC
   PublicLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
