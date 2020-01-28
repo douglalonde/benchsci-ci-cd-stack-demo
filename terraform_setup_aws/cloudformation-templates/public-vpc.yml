@@ -130,8 +130,8 @@ Resources:
       IpProtocol: -1
       SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
   EcsSecurityGroupEgress:
-    Type: AWS::EC2::SecurityGroupEgress
-      SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
+     #Type: AWS::EC2::SecurityGroupEgress
+    #SourceSecurityGroupId: !Ref 'FargateContainerSecurityGroup'
       - IpProtocol: tcp
         FromPort: 0
         ToPort: 6880
@@ -172,7 +172,7 @@ Resources:
           - CidrIp: 0.0.0.0/0
             IpProtocol: -1
       SecurityGroupIngress:
-        SourceSecurityGroupId: Ref 'SecurityGroupIngress'
+              #SourceSecurityGroupId: Ref 'SecurityGroupIngress'
           - IpProtocol: tcp
             FromPort: 80
             ToPort: 80
