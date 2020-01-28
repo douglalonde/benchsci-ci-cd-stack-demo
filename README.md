@@ -20,7 +20,6 @@ The ECS cluster is created using Terraform.
     terraform plan
     # Apply the plan to create the AWS resources
     terraform apply
-    
 4. Create the project on [CircleCI](https://circleci.com) (creating an account if necessary), and link it to this repository.
 5. FYI: Run `terraform destroy` to destroy most of the created AWS resources but in case of lingering undeleted resources, check the [AWS Management Console](https://console.aws.amazon.com/) to see if there are any remaining undeleted resources. In particular, please check the ECS, CloudFormation and VPC pages.
 
