@@ -6,6 +6,8 @@ Code changes to the master branch of this repo will result in deployment to the 
 
 This is designed to be separated by long running Git branches. Groups will have targetted access to these branches such as Dev, Staging and Productuion. For example, QA may only access Staging, developers may access only Dev and DevOps would access all platforms.
 
+A Dockerfile is used to create an image, which is uploaded to the AWS Container Registry (ECR) which is then used by ECS and Fargate to perform compute services.
+
 ## Deploy to AWS ECS from ECR via CircleCI
 
 ### Prerequisites and AWS Stack Deployment
@@ -26,6 +28,11 @@ The ECS cluster is created using Terraform.
 ### Configure environment variables on CircleCI
 The following [environment variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) must be set for the project on CircleCI via the project settings page, before the project can be built successfully.
 
+### Add Application Requirments or Edit App Deployment Details
+
+- Edit the Dockerfile to alter the application configuration.
+- Edit .circleci/config.yml to change stack deployment options.
+- Edit requirements.txt to add additional packages
 
 | Variable                       | Description                                               |
 | ------------------------------ | --------------------------------------------------------- |
